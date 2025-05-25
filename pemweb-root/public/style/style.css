@@ -17,10 +17,11 @@ body {
   background-color: var(--orange-light);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
 }
 
-.btn {
+.btn, button {
   border: none;
   padding: 10px 20px;
   background-color: var(--orange);
@@ -39,7 +40,7 @@ body {
 }
 
 .title {
-  font-size: 24px;
+  font-size: 2rem;
   margin: 0;
 }
 
@@ -72,13 +73,27 @@ section {
 }
 
 .card {
-  width: 100px;
+  width: 120px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card img {
-  width: 100%;
-  border-radius: 10px;
+  width: 7rem;
+  height: 7rem;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
 }
+
 
 .view-more {
   margin-top: 20px;
