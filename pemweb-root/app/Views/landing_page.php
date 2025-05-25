@@ -12,6 +12,7 @@
     <header class="navbar">
         <button class="btn">Home</button>
         <button class="btn signup">Signup</button>
+        <img src="<?= base_url('images/logo.png') ?>" alt="">
     </header>
 
     <section class="hero">
