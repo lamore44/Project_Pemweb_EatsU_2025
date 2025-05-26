@@ -16,13 +16,14 @@
             <button class="btn">Home</button>
         </div>
         <div class="nav-right">
-            <button class="btn signup">Signup</button>
+            <button class="btn signup" onclick="window.location.href='<?= base_url('login') ?>'">Signup</button>
+            <!-- <button class="btn signup"><a href="<?= base_url('login') ?>">Signup</a></button> -->
         </div>
     </div>
 
 
     <section class="hero">
-        <h1 class="title">WELCOME <br>to<br> EATSU</h1>
+        <h1 class="title animated-title">WELCOME <br>to<br> EATSU</h1>
         <p class="subtitle">Find your fav food at <br> Unram Cafetaria</p>
         <div class="scroll-down">&#9660;</div>
     </section>

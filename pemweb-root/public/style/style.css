@@ -1,11 +1,4 @@
-:root {
-  --yellow: #FFF085;
-  --orange-light: #FCB454;
-  --orange: #FF9B17;
-  --red: #F16767;
-  --font: 'Press Start 2P', cursive;
-}
-
+@import url(root.css);
 body {
   margin: 0;
   font-family: var(--font);
@@ -42,7 +35,29 @@ body {
 .title {
   font-size: 2rem;
   margin: 0;
+  margin-top: 5rem;
+  margin-bottom: 1rem;
 }
+.animated-title {
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: fadeSlideIn 1.2s ease-out forwards, wiggle 2.5s ease-in-out 3s infinite;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(-1.5deg); }
+  75% { transform: rotate(1deg); }
+}
+
 
 .subtitle {
   margin: 10px 0;
@@ -50,6 +65,7 @@ body {
 }
 
 .scroll-down {
+  margin-top: 16rem;
   font-size: 20px;
   animation: bounce 1.5s infinite;
 }
