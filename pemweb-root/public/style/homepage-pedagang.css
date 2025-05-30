@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff8dc;
+    margin: 0;
+    padding: 0;
+}
+.section {
+    padding: 20px;
+}
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #6e2ca0;
+    margin-bottom: 10px;
+}
+.menu-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.menu-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 180px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.menu-image {
+    width: 100%;
+    border-radius: 5px;
+}
+.menu-info {
+    margin-top: 10px;
+}
+.menu-name {
+    font-weight: bold;
+    color: #333;
+}
+.menu-price {
+    color: #888;
+    margin-bottom: 5px;
+}
+.edit-button {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: white;
+    background-color: #6e2ca0;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+.edit-button:hover {
+    background-color: #53207a;
+}
