@@ -1,0 +1,139 @@
+body {
+  font-family: monospace;
+  background-color: #fff59d;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ffa726;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background: lightgray;
+  border-radius: 5px;
+}
+
+.home-btn {
+  background-color: #eee;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.profile-icon {
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-image: url('https://img.icons8.com/material-outlined/24/000000/user.png');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+main {
+  padding: 1rem;
+}
+
+.summary {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.card {
+  background: #ffa726;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+}
+
+.card h2 {
+  font-size: 2rem;
+  margin: 0.5rem 0 0;
+}
+
+.report-section {
+  margin: 2rem 0;
+}
+
+.report-section h3 {
+  color: #6a1b9a;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.order {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status {
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.status.pending {
+  background-color: #ef9a9a;
+  color: darkred;
+}
+
+.status.success {
+  background-color: #a5d6a7;
+  color: green;
+}
+
+.actions {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.add-btn {
+  background-color: #ffa726;
+  color: white;
+  padding: 2rem;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 1rem;
+  position: relative;
+}
+
+.add-btn::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  font-size: 2rem;
+  color: white;
+}
+
+.detail-btn {
+  background-color: #ffa726;
+  border: none;
+  color: black;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}

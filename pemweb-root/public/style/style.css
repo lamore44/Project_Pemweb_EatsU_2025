@@ -4,14 +4,20 @@ body {
   font-family: var(--font);
   background-color: var(--yellow);
   color: #000;
+  padding-top: 60px;
 }
-
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
   background-color: var(--orange-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .btn, button {
