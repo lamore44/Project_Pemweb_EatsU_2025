@@ -2,11 +2,12 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard</title>
-  <link rel="stylesheet" href="homepage-admin.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
   <header>
     <div class="logo"></div>
     <button class="home-btn">Home</button>
@@ -46,8 +47,8 @@
     </section>
 
     <section class="actions">
-      <button class="add-btn">Tambah Kantin</button>
-      <button class="add-btn">Tambah Admin</button>
+      <button class="add-btn" data-type="Kantin">Tambah Kantin</button>
+      <button class="add-btn" data-type="Admin">Tambah Admin</button>
     </section>
 
     <section class="report-section">
@@ -62,5 +63,24 @@
       </div>
     </section>
   </main>
+
+  <!-- Popup Modal -->
+  <div id="popupForm" class="popup hidden">
+    <div class="popup-content">
+      <span id="closePopup" class="close">&times;</span>
+      <h3 id="popupTitle">Tambah Data</h3>
+      <form id="dataForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="description">Deskripsi:</label>
+        <input type="text" id="description" name="description" required />
+
+        <button type="submit">Simpan</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
