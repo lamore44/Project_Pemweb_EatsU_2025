@@ -11,12 +11,55 @@ body {
     height: 100vh;
 }
 
+.card-container {
+    perspective: 1000px;
+    width: 320px;
+    /* Ensure the height adapts to the content inside the card */
+}
+
+.flip-card {
+    width: 100%;
+    /* The height will be auto to allow content to adjust dynamically */
+    min-height: 450px; /* Set a minimum height if necessary */
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.5s;
+    /* Remove the hover effect so it doesn't flip when hovered */
+}
+
+.flip-card .card {
+    position: absolute;
+    width: 100%;
+    height: auto; /* Allow the height to adjust to content */
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.flip-card .front,
+.flip-card .back {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    /* Ensure form contents inside the card don't overflow */
+    box-sizing: border-box;
+}
+
+.flip-card .back {
+    transform: rotateY(180deg);
+}
+
 .login-card {
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     padding: 30px;
-    width: 320px;
+    width: 100%;
     text-align: center;
     animation: fadeInUp 0.6s ease-out;
 }
@@ -53,6 +96,47 @@ body {
     background-color: var(--red);
 }
 
+.login-card select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-family: var(--font);
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: var(--orange-light);
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.login-card select:hover {
+    background-color: var(--orange);
+    border-color: var(--red);
+}
+
+.login-card select:focus {
+    outline: none;
+    background-color: var(--orange);
+    border-color: var(--red);
+    box-shadow: 0 0 5px var(--red);
+}
+
+/* Style the dropdown options */
+.login-card select option {
+    font-family: var(--font);
+    font-size: 12px;
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Optional: Add styles for the options when hovered */
+.login-card select option:hover {
+    background-color: var(--orange-light);
+    color: #fff;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -62,4 +146,19 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Buttons to flip between signup and login */
+.flip-button {
+    margin-top: 15px;
+    text-decoration: none;
+    color: var(--orange);
+    cursor: pointer;
+    font-size: 14px;
+    background: none;
+    border: none;
+}
+
+.flip-button:hover {
+    text-decoration: underline;
 }

@@ -16,8 +16,7 @@
             <button class="btn">Home</button>
         </div>
         <div class="nav-right">
-            <button class="btn signup" onclick="window.location.href='<?= base_url('login') ?>'">Signup</button>
-            <!-- <button class="btn signup"><a href="<?= base_url('login') ?>">Signup</a></button> -->
+            <button class="btn signup" onclick="window.location.href='<?= base_url('register') ?>'">Signup</button>
         </div>
     </div>
 

@@ -1,11 +1,14 @@
 -- TABEL USER (induk)
 CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nama VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    password VARCHAR(255),
-    role ENUM('admin', 'penjual', 'mahasiswa') NOT NULL
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'penjual', 'mahasiswa') NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 -- TABEL ADMIN
 CREATE TABLE admin (

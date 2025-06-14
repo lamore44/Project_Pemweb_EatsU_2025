@@ -1,7 +1,6 @@
 <?php 
 
 namespace App\Models;
-
 use CodeIgniter\Model;
 
 class AdminModel extends Model
@@ -10,3 +9,4 @@ class AdminModel extends Model
     protected $primaryKey = 'id_admin';
     protected $allowedFields = ['nama_admin', 'email', 'user_id'];
 }
+
