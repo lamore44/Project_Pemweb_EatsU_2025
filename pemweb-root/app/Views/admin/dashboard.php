@@ -2,11 +2,18 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
+<<<<<<< HEAD:pemweb-root/app/Views/admin/dashboard.php
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin</title>
   <link rel="stylesheet" href="<?= base_url('style/homepage-admin.css') ?>"/>
+=======
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+>>>>>>> 62daa3c7886feda9d34ca10a73f74f02a5e1455e:pemweb-root/app/Views/homepage_admin.php
 </head>
 <body>
+
   <header>
     <div class="logo"></div>
     <button class="home-btn">Home</button>
@@ -46,8 +53,8 @@
     </section>
 
     <section class="actions">
-      <button class="add-btn">Tambah Kantin</button>
-      <button class="add-btn">Tambah Admin</button>
+      <button class="add-btn" data-type="Kantin">Tambah Kantin</button>
+      <button class="add-btn" data-type="Admin">Tambah Admin</button>
     </section>
 
     <section class="report-section">
@@ -62,5 +69,24 @@
       </div>
     </section>
   </main>
+
+  <!-- Popup Modal -->
+  <div id="popupForm" class="popup hidden">
+    <div class="popup-content">
+      <span id="closePopup" class="close">&times;</span>
+      <h3 id="popupTitle">Tambah Data</h3>
+      <form id="dataForm">
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="description">Deskripsi:</label>
+        <input type="text" id="description" name="description" required />
+
+        <button type="submit">Simpan</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -34,7 +34,6 @@ header {
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  background-image: url('https://img.icons8.com/material-outlined/24/000000/user.png');
   background-size: 60%;
   background-repeat: no-repeat;
   background-position: center;
@@ -117,6 +116,8 @@ main {
   border-radius: 10px;
   font-size: 1rem;
   position: relative;
+  width: 160px;
+  height: 120px;
 }
 
 .add-btn::after {
@@ -136,4 +137,68 @@ main {
   padding: 0.3rem 0.8rem;
   border-radius: 6px;
   font-size: 0.8rem;
+}
+
+/* Popup Styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 300px;
+  position: relative;
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  color: #ffa726;
+}
+
+.popup-content label {
+  display: block;
+  margin: 0.5rem 0 0.2rem;
+  font-weight: bold;
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.popup-content button {
+  background-color: #ffa726;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
 }
