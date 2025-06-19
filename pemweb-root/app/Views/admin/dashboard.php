@@ -87,6 +87,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="homepage-admin.js"></script>
 </body>
 </html>
