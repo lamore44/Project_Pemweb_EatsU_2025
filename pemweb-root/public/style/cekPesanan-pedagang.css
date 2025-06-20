@@ -1,0 +1,85 @@
+body {
+  font-family: monospace;
+  margin: 0;
+  background: #fff8ae;
+}
+
+header {
+  background: #f25c62;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo, .avatar {
+  width: 50px;
+  height: 50px;
+  background: #ccc;
+  border-radius: 10px;
+}
+
+nav button {
+  margin: 0 5px;
+  font-weight: bold;
+  font-family: monospace;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+.kantin-info {
+  background: #ffb24a;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.kantin-info img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+.antrian {
+  padding: 20px;
+}
+
+.antrian h2 {
+  font-size: 20px;
+  color: #5e2ca5;
+}
+
+.pesanan {
+  background: white;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-menunggu {
+  background: #f25c62;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.status-berhasil {
+  background: #4be367;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.btn-detail {
+  background: orange;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  color: black;
+}

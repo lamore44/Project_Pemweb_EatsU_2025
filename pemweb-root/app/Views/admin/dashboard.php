@@ -103,6 +103,10 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <script src="<?= base_url('script/homepage-admin.js')?>"></script>
+=======
+  <script src="homepage-admin.js"></script>
+>>>>>>> 2a2f33f5d86d7d1813fef339fd59cec1f3eff52f
 </body>
 </html>
