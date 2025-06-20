@@ -109,6 +109,15 @@ class Auth extends Controller
 
             // Redirect based on role
             if ($user['role'] == 'admin') {
+                $adminModel = new AdminModel();
+                $admin = $adminModel->where('user_id', $user['id'])->first();
+                if ($admin) {
+                    session()->set([
+                        'admin_name' => $admin['nama_admin'],
+                        'id_admin'   => $admin['id_admin'],
+                        'email'      => $admin['email'],  // jika dibutuhkan
+                    ]);
+                }
                 return redirect()->to('/admin/dashboard');
             } elseif ($user['role'] == 'penjual') {
                 return redirect()->to('/penjual/dashboard');

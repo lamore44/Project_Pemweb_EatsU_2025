@@ -2,54 +2,63 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-<<<<<<< HEAD:pemweb-root/app/Views/admin/dashboard.php
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Admin</title>
   <link rel="stylesheet" href="<?= base_url('style/homepage-admin.css') ?>"/>
-=======
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
->>>>>>> 62daa3c7886feda9d34ca10a73f74f02a5e1455e:pemweb-root/app/Views/homepage_admin.php
+
 </head>
 <body>
 
-  <header>
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
     <div class="logo"></div>
     <button class="home-btn">Home</button>
-    <div class="profile-icon"></div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+    <span style="font-weight: bold; color: white;">
+      <?= esc(session()->get('admin_name')) ?>
+    </span>
+    <div class="profile-container">
+      <div class="profile-icon"></div>
+        <div class="dropdown-content">
+          <a href="<?= base_url('/admin/edit_profile') ?>">Edit Profile</a>
+          <a href="<?= base_url('/admin/change_password') ?>">Change Password</a>
+          <a href="<?= base_url('/logout') ?>">Logout</a>
+        </div>
+      </div>
+    </div>
   </header>
+
+
 
   <main>
     <section class="summary">
       <div class="card">
         <p>Jumlah Kantin</p>
-        <h2>11</h2>
+        <h2><?= $jumlahKantin ?></h2>
       </div>
       <div class="card">
         <p>Jumlah Pesanan</p>
-        <h2>21</h2>
+        <h2><?= $jumlahPesanan ?></h2>
       </div>
       <div class="card">
         <p>Jumlah Admin</p>
-        <h2>3</h2>
+        <h2><?= $jumlahAdmin ?></h2>
       </div>
     </section>
 
     <section class="report-section">
-      <h3>Report Pemesanan</h3>
-      <div class="order">
-        <span>Pesanan A</span>
-        <span class="status pending">Menunggu Pembayaran</span>
-      </div>
-      <div class="order">
-        <span>Pesanan B</span>
-        <span class="status success">Pembayaran Berhasil</span>
-      </div>
-      <div class="order">
-        <span>Pesanan C</span>
-        <span class="status pending">Menunggu Pembayaran</span>
-      </div>
+    <h3>Report Pemesanan</h3>
+      <?php if (!empty($orders)): ?>
+        <?php foreach($orders as $o): ?>
+          <div class="order">
+            <span><?= $o->nama_produk ?> (ID <?= $o->id_pesan ?>)</span>
+            <span class="status <?= $o->status==='pending' ? 'pending' : 'success' ?>">
+              <?= $o->status==='pending' ? 'Menunggu Pembayaran' : 'Pembayaran Berhasil' ?>
+            </span>
+          </div>
+        <?php endforeach ?>
+      <?php else: ?>
+      <p>Tidak ada data pemesanan.</p>
+    <?php endif ?>
     </section>
 
     <section class="actions">
@@ -58,16 +67,23 @@
     </section>
 
     <section class="report-section">
-      <h3>Report Response</h3>
-      <div class="order">
-        <span>Laporan A</span>
-        <button class="detail-btn">Cek Detail</button>
-      </div>
-      <div class="order">
-        <span>Laporan B</span>
-        <button class="detail-btn">Cek Detail</button>
-      </div>
+      <h3>Review Terbaru</h3>
+      <?php if (! empty($reviews)): ?>
+        <?php foreach($reviews as $r): ?>
+          <div class="order">
+            <span><?= esc($r['mhs_id']) ?> memberi rating <?= esc($r['rating']) ?> untuk produk <strong><?= esc($r['nama_produk']) ?></strong></span>
+            <button 
+              class="detail-btn"
+              onclick="window.location='<?= site_url('review/detail/'.$r['id_review']) ?>'">
+              Cek Detail
+            </button>
+          </div>
+        <?php endforeach ?>
+      <?php else: ?>
+        <p>Tidak ada review.</p>
+      <?php endif ?>
     </section>
+
   </main>
 
   <!-- Popup Modal -->
@@ -87,6 +103,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="<?= base_url('script/homepage-admin.js')?>"></script>
 </body>
 </html>
