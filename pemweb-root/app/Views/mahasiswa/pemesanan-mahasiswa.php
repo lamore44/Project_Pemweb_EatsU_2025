@@ -29,6 +29,7 @@
         <div class="menu-card">
           <img src="nasi-goreng.jpg" alt="Menu A">
           <p>Menu A</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -36,6 +37,7 @@
         <div class="menu-card">
           <img src="sate.jpg" alt="Menu B">
           <p>Menu B</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -43,6 +45,7 @@
         <div class="menu-card">
           <img src="sate.jpg" alt="Menu C">
           <p>Menu C</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -56,6 +59,7 @@
         <div class="menu-card">
           <img src="kebab.jpg" alt="Minuman A">
           <p>Minuman A</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -63,6 +67,7 @@
         <div class="menu-card">
           <img src="nasi-goreng.jpg" alt="Minuman B">
           <p>Minuman B</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -70,6 +75,7 @@
         <div class="menu-card">
           <img src="sate.jpg" alt="Minuman C">
           <p>Minuman C</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -83,6 +89,7 @@
         <div class="menu-card">
           <img src="kebab.jpg" alt="Snack A">
           <p>Snack A</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -90,6 +97,7 @@
         <div class="menu-card">
           <img src="nasi-goreng.jpg" alt="Snack B">
           <p>Snack B</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
@@ -97,6 +105,7 @@
         <div class="menu-card">
           <img src="sate.jpg" alt="Snack C">
           <p>Snack C</p>
+          <p class="price">Rp 25.000</p>
           <div class="qty-control">
             <button>-</button><span>01</span><button>+</button>
           </div>
