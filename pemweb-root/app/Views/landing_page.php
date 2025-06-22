@@ -8,6 +8,11 @@
     <title>Welcome Eatsu</title>
     <link rel="stylesheet" href="<?= base_url('style/style.css') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+    img {
+        image-rendering: pixelated;
+    }
+    </style>
 </head>
 
 <body>
@@ -22,7 +27,7 @@
 
 
     <section class="hero">
-        <h1 class="title animated-title">WELCOME <br>to<br> EATSU</h1>
+        <h1 class="title animated-title">WELCOME<br>EATSU</h1>
         <p class="subtitle">Find your fav food at <br> Unram Cafetaria</p>
         <div class="scroll-down">&#9660;</div>
     </section>
@@ -50,15 +55,15 @@
         <h2>Top Warung</h2>
         <div class="cards">
             <div class="card">
-                <img src="/images/kantin-a.png" alt="Kantin A">
+                <img src="/images/kantinA.png" alt="Kantin A">
                 <p>Kantin A</p>
             </div>
             <div class="card">
-                <img src="/images/kantin-b.png" alt="Kantin B">
+                <img src="/images/kantinB.png" alt="Kantin B">
                 <p>Kantin B</p>
             </div>
             <div class="card">
-                <img src="/images/kantin-c.png" alt="Kantin C">
+                <img src="/images/kantinC.png" alt="Kantin C">
                 <p>Kantin C</p>
             </div>
         </div>
@@ -75,10 +80,8 @@
             <button>Send</button>
         </div>
         <div class="footer-section">
-            <h4>Products</h4>
-        </div>
-        <div class="footer-section">
             <h4>Contact</h4>
+            <p>pemwebsehat@pemweb.com</p>
         </div>
     </footer>
 </body>
