@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cek Pesanan Pedagang</title>
-  <link rel="stylesheet" href="cekPesanan-pedagang.css">
+  <link rel="stylesheet" href="<?= base_url('style/cekPesanan-pedagang.css')?>">
 </head>
 <body>
   <header>

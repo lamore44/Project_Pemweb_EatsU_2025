@@ -62,9 +62,10 @@
     </section>
 
     <section class="actions">
-      <button class="add-btn" data-type="Kantin">Tambah Kantin</button>
-      <button class="add-btn" data-type="Admin">Tambah Admin</button>
+      <button class="add-btn" onclick="openPopup('popupFormKantin')">Tambah Kantin</button>
+      <button class="add-btn" onclick="openPopup('popupFormAdmin')">Tambah Admin</button>
     </section>
+
 
     <section class="report-section">
       <h3>Review Terbaru</h3>
@@ -86,27 +87,47 @@
 
   </main>
 
-  <!-- Popup Modal -->
-  <div id="popupForm" class="popup hidden">
+    <!-- Tambah Kantin -->
+  <div id="popupFormKantin" class="popup hidden">
     <div class="popup-content">
-      <span id="closePopup" class="close">&times;</span>
-      <h3 id="popupTitle">Tambah Data</h3>
-      <form id="dataForm">
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required />
-
-        <label for="description">Deskripsi:</label>
-        <input type="text" id="description" name="description" required />
-
+      <span class="close" onclick="closePopup('popupFormKantin')">&times;</span>
+      <h3>Tambah Kantin</h3>
+      <form method="POST" action="<?= base_url('/admin/save_kantin') ?>">
+        <label>Nama Kantin:</label>
+        <input type="text" name="name" required />
+        <label>Deskripsi:</label>
+        <input type="text" name="description" required />
+        <label>Pilih Penjual:</label>
+        <select name="id_penjual" required>
+          <?php foreach ($penjualList as $p): ?>
+            <option value="<?= $p['id_penjual'] ?>"><?= esc($p['nama_penjual']) ?></option>
+          <?php endforeach ?>
+        </select>
         <button type="submit">Simpan</button>
       </form>
     </div>
   </div>
 
-<<<<<<< HEAD
+  <!-- Tambah Admin -->
+  <div id="popupFormAdmin" class="popup hidden">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('popupFormAdmin')">&times;</span>
+      <h3>Tambah Admin</h3>
+      <form method="POST" action="<?= base_url('/admin/save_admin') ?>">
+        <label>Nama Admin:</label>
+        <input type="text" name="nama_admin" required />
+        <label>Email:</label>
+        <input type="email" name="email" required />
+        <label>Username:</label>
+        <input type="text" name="username" required />
+        <label>Password:</label>
+        <input type="password" name="password" required />
+        <button type="submit">Simpan</button>
+      </form>
+    </div>
+  </div>
+
+
   <script src="<?= base_url('script/homepage-admin.js')?>"></script>
-=======
-  <script src="homepage-admin.js"></script>
->>>>>>> 2a2f33f5d86d7d1813fef339fd59cec1f3eff52f
 </body>
 </html>

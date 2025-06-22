@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit Menu</title>
-  <link rel="stylesheet" href="edit-menu.css" />
+  <link rel="stylesheet" href="<?= base_url('style/edit-menu.css')?>" />
 </head>
 <body>
   <div class="form-wrapper">

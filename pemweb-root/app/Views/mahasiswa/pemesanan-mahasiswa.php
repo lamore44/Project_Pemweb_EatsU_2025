@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kantin Pak Budi</title>
-  <link rel="stylesheet" href="pemesanan-mahasiswa.css">
+  <link rel="stylesheet" href="<?= base_url('style/pemesanan-mahasiswa.css')?>">
 </head>
 <body>
 

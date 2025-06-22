@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page Pedagang</title>
-  <link rel="stylesheet" href="homepage_pedagang.css">
+  <link rel="stylesheet" href="<?= base_url('style/homepage_pedagang.css')?>">
 </head>
 <body>
 

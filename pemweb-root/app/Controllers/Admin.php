@@ -1,41 +1,40 @@
 <?php
-// app/Controllers/Admin.php
+
 namespace App\Controllers;
 
 use App\Models\KantinModel;
 use App\Models\MemesanModel;
 use App\Models\AdminModel;
 use App\Models\ReviewModel;
+use App\Models\PenjualModel;
+use App\Models\UserModel;
 use CodeIgniter\Controller;
 
 class Admin extends BaseController
 {
     public function index()
     {
-        // Load model
         $kantinModel = new KantinModel();
         $memesanModel = new MemesanModel();
-        $adminModel  = new AdminModel();
+        $adminModel = new AdminModel();
         $reviewModel = new ReviewModel();
-        $db          = \Config\Database::connect();
+        $penjualModel = new PenjualModel();
+        $db = \Config\Database::connect();
 
-        // Hitung jumlah baris
-        $data['jumlahKantin']  = $kantinModel->countAll();
+        $data['jumlahKantin'] = $kantinModel->countAll();
         $data['jumlahPesanan'] = $memesanModel->countAll();
-        $data['jumlahAdmin']   = $adminModel->countAll();
-        // $data['orders'] = $memesanModel->getRecentWithStatus(); 
-        
-        // Ambil data pemesanan terbaru beserta status pembayaran
+        $data['jumlahAdmin'] = $adminModel->countAll();
+
         $data['orders'] = $db->table('memesan')
             ->select('memesan.id_pesan, mahasiswa.user_id AS mhs_id, produk.nama_produk, pembayaran.status, memesan.waktu_pesan')
             ->join('pembayaran', 'pembayaran.id_pesan = memesan.id_pesan')
-            ->join('mahasiswa',  'mahasiswa.id_mhs   = memesan.id_mhs')
-            ->join('produk',     'produk.id_produk  = memesan.id_produk')
+            ->join('mahasiswa',  'mahasiswa.id_mhs = memesan.id_mhs')
+            ->join('produk',     'produk.id_produk = memesan.id_produk')
             ->orderBy('memesan.waktu_pesan', 'DESC')
             ->limit(5)
             ->get()
             ->getResult();
-        // ambil semua response terbaru, misal limit 5
+
         $data['reviews'] = $reviewModel
             ->select('review.id_review, mahasiswa.user_id AS mhs_id, produk.nama_produk, review.rating')
             ->join('mahasiswa', 'mahasiswa.id_mhs = review.id_mhs')
@@ -44,13 +43,58 @@ class Admin extends BaseController
             ->limit(5)
             ->findAll();
 
+        $penjualList = $db->table('penjual')
+            ->select('penjual.*')
+            ->join('kantin', 'kantin.id_penjual = penjual.id_penjual', 'left')
+            ->where('kantin.id_kantin IS NULL') // hanya penjual yang belum punya kantin
+            ->get()->getResultArray();
+
+        $data['penjualList'] = $penjualList;
+
+
         return view('admin/dashboard', $data);
     }
 
-    // Menampilkan form edit profil admin
+    public function save_kantin()
+    {
+        $kantinModel = new KantinModel();
+
+        $data = [
+            'nama_kantin' => $this->request->getPost('name'),
+            'deskripsi'   => $this->request->getPost('description'),
+            'id_penjual'  => $this->request->getPost('id_penjual')
+        ];
+
+        $kantinModel->insert($data);
+        return redirect()->to('/admin/dashboard')->with('success', 'Kantin berhasil ditambahkan.');
+    }
+
+    public function save_admin()
+    {
+        $userModel = new UserModel();
+        $adminModel = new AdminModel();
+
+        $userData = [
+            'username' => $this->request->getPost('username'),
+            'email'    => $this->request->getPost('email'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role'     => 'admin'
+        ];
+
+        $userModel->insert($userData);
+        $userId = $userModel->getInsertID();
+
+        $adminModel->insert([
+            'user_id'     => $userId,
+            'nama_admin'  => $this->request->getPost('nama_admin'),
+            'email'       => $this->request->getPost('email')
+        ]);
+
+        return redirect()->to('/admin/dashboard')->with('success', 'Admin berhasil ditambahkan.');
+    }
+
     public function editProfile()
     {
-        // Ambil data dari session
         $data = [
             'admin' => [
                 'id_admin'    => session()->get('id_admin'),
@@ -58,15 +102,14 @@ class Admin extends BaseController
                 'email'       => session()->get('email'),
             ]
         ];
-
         return view('admin/edit_profile', $data);
     }
 
     public function updateProfile()
     {
         $adminModel = new AdminModel();
-
         $id_admin = session()->get('id_admin');
+
         $nama_admin = $this->request->getPost('nama_admin');
         $email = $this->request->getPost('email');
 
@@ -74,23 +117,16 @@ class Admin extends BaseController
             return redirect()->back()->with('error', 'ID admin tidak ditemukan di session.');
         }
 
-        // Cek dulu apakah data admin memang ada di DB
         $admin = $adminModel->find($id_admin);
         if (!$admin) {
-            return redirect()->back()->with('error', 'Admin tidak ditemukan di database.');
+            return redirect()->back()->with('error', 'Admin tidak ditemukan.');
         }
 
-        // Lanjut update
-        $updated = $adminModel->update($id_admin, [
+        $adminModel->update($id_admin, [
             'nama_admin' => $nama_admin,
             'email' => $email
         ]);
 
-        if ($updated === false) {
-            return redirect()->back()->with('error', 'Gagal menyimpan ke database.');
-        }
-
-        // Update session
         session()->set([
             'admin_name' => $nama_admin,
             'email' => $email
@@ -99,17 +135,14 @@ class Admin extends BaseController
         return redirect()->to('/admin/edit-profile')->with('success', 'Profil berhasil diperbarui!');
     }
 
-
-    // Menampilkan form ganti password
     public function changePassword()
     {
         return view('admin/change_password');
     }
 
-    // Menyimpan password baru
     public function updatePassword()
     {
-        $userModel = new \App\Models\UserModel();
+        $userModel = new UserModel();
         $userId = session()->get('user_id');
 
         $current = $this->request->getPost('current_password');
