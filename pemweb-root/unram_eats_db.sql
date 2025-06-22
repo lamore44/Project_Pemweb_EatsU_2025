@@ -79,3 +79,28 @@ CREATE TABLE pembayaran (
     status ENUM('pending', 'selesai') DEFAULT 'pending',
     FOREIGN KEY (id_pesan) REFERENCES memesan(id_pesan) ON DELETE CASCADE
 );
+
+ALTER TABLE penjual ADD COLUMN nama_penjual VARCHAR(100) AFTER user_id;
+
+INSERT INTO penjual (user_id, nama_penjual) VALUES (1, 'Pak Budi');
+
+ALTER TABLE produk ADD COLUMN kategori VARCHAR(50) AFTER jumlah_produk;
+UPDATE produk SET kategori='Makanan' WHERE id_produk=1;
+UPDATE produk SET kategori='Minuman' WHERE id_produk=2;
+UPDATE produk SET kategori='Snack' WHERE id_produk=3;   
+
+INSERT INTO kantin (nama_kantin, id_penjual) VALUES ('Kantin Pak Budi', 1);
+
+INSERT INTO produk (nama_produk, harga, id_kantin, jumlah_produk) 
+VALUES 
+('Menu A', 25000, 1, 100),
+('Menu B', 25000, 1, 150),
+('Menu C', 25000, 1, 200);
+
+INSERT INTO review (id_mhs, id_produk, rating) 
+VALUES 
+(1, 1, 4),
+(2, 2, 5),
+(3, 3, 3);
+
+ALTER TABLE kantin ADD COLUMN deskripsi TEXT;

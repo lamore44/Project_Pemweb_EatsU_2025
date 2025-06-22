@@ -11,9 +11,8 @@ use CodeIgniter\Controller;
 
 class Auth extends Controller
 {
-    public function register()
-    {
-        // Tampilkan form registrasi
+    public function register(){
+        // Render the registration view
         return view('auth/register');
     }
     public function processRegister()
@@ -69,8 +68,10 @@ class Auth extends Controller
                 $mahasiswaModel->insert($mahasiswaData);
             } elseif ($role == 'penjual') {
                 $penjualModel = new PenjualModel();
+                // Simpan username di tabel penjual
                 $penjualData = [
-                    'user_id' => $userId
+                    'user_id' => $userId,
+                    'nama_penjual' => $username  // Menyimpan username di kolom nama_penjual
                 ];
                 $penjualModel->insert($penjualData);
             }
@@ -82,6 +83,7 @@ class Auth extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan, coba lagi.');
         }
     }
+
 
     // app/Controllers/Auth.php
     public function login()
@@ -120,7 +122,22 @@ class Auth extends Controller
                 }
                 return redirect()->to('/admin/dashboard');
             } elseif ($user['role'] == 'penjual') {
-                return redirect()->to('/penjual/dashboard');
+                $penjualModel = new \App\Models\PenjualModel();
+                $penjual = $penjualModel->where('user_id', $user['id'])->first();
+
+                if ($penjual) {
+                    $sessionData = [
+                        'user_id'     => $user['id'],
+                        'role'        => 'penjual',
+                        'id_penjual'  => $penjual['id_penjual']
+                    ];
+
+                    session()->set($sessionData);
+
+                    return redirect()->to('/penjual/dashboard');
+                } else {
+                    return redirect()->back()->with('error', 'Akun penjual belum terdaftar.');
+                }
             } elseif ($user['role'] == 'mahasiswa') {
                 return redirect()->to('/mahasiswa/dashboard');
             }

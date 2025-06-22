@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Profil Mahasiswa</title>
-  <link rel="stylesheet" href="profil-mahasiswa.css" />
+  <link rel="stylesheet" href="<?= base_url('profil-mahasiswa.css')?>" />
 </head>
 <body>
 

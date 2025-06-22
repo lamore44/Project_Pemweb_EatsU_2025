@@ -24,3 +24,11 @@ form.addEventListener("submit", (e) => {
   alert(`Data berhasil ditambahkan:\nNama: ${name}\nDeskripsi: ${description}`);
   popup.classList.add("hidden");
 });
+
+function openPopup(id) {
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function closePopup(id) {
+  document.getElementById(id).classList.add('hidden');
+}

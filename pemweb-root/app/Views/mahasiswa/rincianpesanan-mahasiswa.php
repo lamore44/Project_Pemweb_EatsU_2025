@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rincian Pesanan</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="<?= base_url('style/style.css')?>">
 </head>
 <body>
 
@@ -48,6 +48,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="<?= base_url('script/rincianpesanan-mahasiswa.js')?>"></script>
 </body>
 </html>

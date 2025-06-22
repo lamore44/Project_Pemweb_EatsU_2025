@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Detail Pesanan</title>
-  <link rel="stylesheet" href="detailPesanan-pedagang.css">
+  <link rel="stylesheet" href="<?= base_url('style/detailPesanan-pedagang.css')?>">
 </head>
 <body>
   <div class="container">

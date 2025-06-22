@@ -201,4 +201,7 @@ class App extends BaseConfig
     public bool $CSPEnabled = false;
     public $debug = true;
     public $sessionDriver = 'CodeIgniter\Session\Handlers\DatabaseHandler';
+    public $appEnvironment = 'development';
+    public $logThreshold = 4;
+
 }
