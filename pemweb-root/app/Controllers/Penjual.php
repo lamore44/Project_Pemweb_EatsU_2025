@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\KantinModel;
 use App\Models\ProdukModel;
+use App\Models\PenjualModel;
 use App\Models\ReviewModel;
 
 class Penjual extends BaseController
@@ -140,5 +141,80 @@ class Penjual extends BaseController
         $kantin = $kantinModel->where('id_penjual', $penjual['id_penjual'])->first();
 
         return $kantin ? $kantin['id_kantin'] : null;
+    }
+
+    public function profile()
+    {
+        // Memeriksa apakah penjual sudah login
+        if (!session()->has('id_penjual') || session()->get('role') !== 'penjual') {
+            return redirect()->to('/login');
+        }
+
+        $id_penjual = session()->get('id_penjual');
+
+        // Inisialisasi model
+        $penjualModel = new PenjualModel();
+        $kantinModel = new KantinModel();
+
+        // Mengambil data penjual beserta username dari tabel user menggunakan JOIN
+        $penjual = $penjualModel->getPenjualWithUser($id_penjual);
+
+        // Ambil data kantin milik penjual
+        $kantin = $kantinModel->where('id_penjual', $id_penjual)->first();
+
+        // Jika data penjual atau kantin tidak ditemukan
+        if (!$penjual || !$kantin) {
+            // Anda bisa menampilkan pesan error atau halaman khusus
+            return view('penjual/no_kantin');
+        }
+
+        return view('penjual/profile', [
+            'penjual' => $penjual,
+            'kantin' => $kantin,
+            'success' => session()->getFlashdata('success') // Untuk notifikasi sukses
+        ]);
+    }
+
+    /**
+     * Memproses pembaruan data profil penjual dan kantin.
+     */
+    public function updateProfile()
+    {
+        if (!session()->has('id_penjual') || session()->get('role') !== 'penjual') {
+            return redirect()->to('/login');
+        }
+
+        $id_penjual = session()->get('id_penjual');
+        $penjualModel = new PenjualModel();
+        $kantinModel = new KantinModel();
+
+        // Ambil ID Kantin
+        $kantinData = $kantinModel->where('id_penjual', $id_penjual)->first();
+        if (!$kantinData) {
+            return redirect()->back()->with('error', 'Kantin tidak ditemukan.');
+        }
+
+        // Data untuk diupdate
+        $dataPenjual = [
+            'nama_penjual' => $this->request->getPost('nama_penjual'),
+        ];
+
+        $dataKantin = [
+            'nama_kantin' => $this->request->getPost('nama_kantin'),
+        ];
+
+        // Proses upload gambar jika ada
+        $gambarFile = $this->request->getFile('gambar_kantin');
+        if ($gambarFile->isValid() && !$gambarFile->hasMoved()) {
+            $namaFile = $gambarFile->getRandomName();
+            $gambarFile->move(FCPATH . 'uploads/kantin', $namaFile);
+            $dataKantin['gambar_kantin'] = 'uploads/kantin/' . $namaFile;
+        }
+
+        // Update data
+        $penjualModel->update($id_penjual, $dataPenjual);
+        $kantinModel->update($kantinData['id_kantin'], $dataKantin);
+
+        return redirect()->to('/penjual/profile')->with('success', 'Profil berhasil diperbarui!');
     }
 }

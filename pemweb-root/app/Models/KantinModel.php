@@ -7,6 +7,5 @@ class KantinModel extends Model
 {
     protected $table = 'kantin';
     protected $primaryKey = 'id_kantin';
-    protected $allowedFields = ['nama_kantin', 'id_penjual', 'deskripsi'];
+    protected $allowedFields = ['nama_kantin', 'id_penjual', 'deskripsi', 'gambar_kantin']; 
 }
-

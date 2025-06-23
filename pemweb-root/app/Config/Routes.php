@@ -10,9 +10,9 @@ $routes->get('/', 'Home::index');
 $routes->get('/register', 'Auth::register');
 $routes->post('/auth/register', 'Auth::processRegister');
 
-$routes->get('/login', 'Auth::login'); // Show the login page
-$routes->post('/auth/processLogin', 'Auth::processLogin'); // Process login
-$routes->get('/logout', 'Auth::logout'); // Logout user
+$routes->get('/login', 'Auth::login'); 
+$routes->post('/auth/processLogin', 'Auth::processLogin');
+$routes->get('/logout', 'Auth::logout');
 
 // Route Admin
 $routes->get('/admin/dashboard', 'Admin::index');
@@ -29,6 +29,8 @@ $routes->post('/admin/save_admin', 'Admin::save_admin');
 $routes->get('/penjual/dashboard', 'Penjual::dashboard');
 $routes->get('/penjual/tambah-menu', 'Penjual::tambahMenu');
 $routes->post('/penjual/tambah-menu', 'Penjual::tambahMenu');
+$routes->get('/penjual/profile', 'Penjual::profile');
+$routes->post('/penjual/profile/update', 'Penjual::updateProfile');
 
 
 
