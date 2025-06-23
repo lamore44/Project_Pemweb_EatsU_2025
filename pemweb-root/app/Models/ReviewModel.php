@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Models;
-
 use CodeIgniter\Model;
 
 class ReviewModel extends Model
 {
-    protected $table = 'review'; // Nama tabel review
+    protected $table = 'review';
     protected $primaryKey = 'id_review';
+    protected $allowedFields = ['id_mhs', 'id_produk', 'rating'];
 
     public function getProductReviews($id_produk)
     {
@@ -16,12 +16,13 @@ class ReviewModel extends Model
 
     public function getRating($reviews)
     {
-        $totalRating = 0;
-        $count = count($reviews);
-        foreach ($reviews as $review) {
-            $totalRating += $review['rating'];
+        if (empty($reviews)) return null;
+
+        $total = 0;
+        foreach ($reviews as $r) {
+            $total += $r['rating'];
         }
 
-        return ($count > 0) ? round($totalRating / $count, 1) : 0; // Menghitung rata-rata rating
+        return round($total / count($reviews), 1);
     }
 }

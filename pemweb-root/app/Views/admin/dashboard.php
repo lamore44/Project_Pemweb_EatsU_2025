@@ -10,7 +10,7 @@
 <body>
 
   <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-    <div class="logo"></div>
+    <div class="logo"><img src="<?= base_url('/images/logo.png') ?>" alt=""></div>
     <button class="home-btn">Home</button>
     <div style="display: flex; align-items: center; gap: 10px;">
     <span style="font-weight: bold; color: white;">

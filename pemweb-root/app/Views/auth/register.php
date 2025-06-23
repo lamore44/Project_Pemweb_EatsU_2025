@@ -22,7 +22,6 @@
           <select name="role" required>
             <option value="mahasiswa">Mahasiswa</option>
             <option value="penjual">Penjual</option>
-            <option value="admin">Admin</option>
           </select><br>
           <button type="submit">Sign Up</button>
         </form>

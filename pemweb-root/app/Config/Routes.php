@@ -27,6 +27,9 @@ $routes->post('/admin/save_admin', 'Admin::save_admin');
 
 //Route Penjual
 $routes->get('/penjual/dashboard', 'Penjual::dashboard');
+$routes->get('/penjual/tambah-menu', 'Penjual::tambahMenu');
+$routes->post('/penjual/tambah-menu', 'Penjual::tambahMenu');
+
 
 
 //Route mahasiswa

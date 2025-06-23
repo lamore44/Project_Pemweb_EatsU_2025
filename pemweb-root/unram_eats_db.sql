@@ -82,20 +82,40 @@ CREATE TABLE pembayaran (
 
 ALTER TABLE penjual ADD COLUMN nama_penjual VARCHAR(100) AFTER user_id;
 
-INSERT INTO penjual (user_id, nama_penjual) VALUES (1, 'Pak Budi');
-
 ALTER TABLE produk ADD COLUMN kategori VARCHAR(50) AFTER jumlah_produk;
 UPDATE produk SET kategori='Makanan' WHERE id_produk=1;
 UPDATE produk SET kategori='Minuman' WHERE id_produk=2;
 UPDATE produk SET kategori='Snack' WHERE id_produk=3;   
 
-INSERT INTO kantin (nama_kantin, id_penjual) VALUES ('Kantin Pak Budi', 1);
+ALTER TABLE kantin ADD COLUMN deskripsi TEXT;
 
-INSERT INTO produk (nama_produk, harga, id_kantin, jumlah_produk) 
-VALUES 
-('Menu A', 25000, 1, 100),
-('Menu B', 25000, 1, 150),
-('Menu C', 25000, 1, 200);
+
+
+INSERT INTO user (username, email, password, role) VALUES
+('admin01', 'admin01@gmail.com', 'admin123', 'admin'),
+('penjual01', 'penjual01@gmail.com', 'penjual123', 'penjual'),
+('mhs01', 'mhs01@gmail.com', 'mhs1', 'mahasiswa'),
+('mhs02', 'mhs02@gmail.com', 'mhs2', 'mahasiswa'),
+('mhs03', 'mhs03@gmail.com', 'mhs3', 'mahasiswa');
+
+INSERT INTO admin (nama_admin, email, user_id) VALUES
+('Admin01', 'admin01@example.com', 1);
+
+INSERT INTO penjual (user_id, nama_penjual) VALUES
+(1, 'Pak Budi');
+
+INSERT INTO mahasiswa (user_id) VALUES
+(3),
+(4),
+(5);
+
+INSERT INTO kantin (nama_kantin, id_penjual, deskripsi) VALUES
+('Kantin Pak Budi', 1, 'Menjual makanan berat dan ringan.');
+
+INSERT INTO produk (nama_produk, harga, id_kantin, jumlah_produk, kategori) VALUES
+('Menu A', 25000, 1, 100, 'Makanan'),
+('Menu B', 25000, 1, 150, 'Minuman'),
+('Nasi Goreng', 20000, 1, 50, 'Makanan');
 
 INSERT INTO review (id_mhs, id_produk, rating) 
 VALUES 
@@ -103,4 +123,14 @@ VALUES
 (2, 2, 5),
 (3, 3, 3);
 
-ALTER TABLE kantin ADD COLUMN deskripsi TEXT;
+INSERT INTO memesan (id_mhs, id_produk, waktu_pesan) VALUES
+(1, 1, '2025-06-22 10:00:00'),
+(2, 1, '2025-06-22 10:30:00'),
+(3, 1, '2025-06-22 11:00:00');
+
+INSERT INTO pembayaran (id_pesan, metode, status) VALUES
+(1, 'QRIS', 'selesai'),
+(2, 'Cash', 'pending'),
+(3, 'Transfer', 'selesai');
+
+
