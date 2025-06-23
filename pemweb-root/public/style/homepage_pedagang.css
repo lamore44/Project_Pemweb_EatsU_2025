@@ -1,147 +1,208 @@
-body {
-  font-family: 'Courier New', monospace;
-  background: #fff9b0;
+/* Basic Reset and Font */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #FEF7E5; /* Warna latar belakang kuning muda */
+  color: #333;
+}
+
+/* Header */
 .header {
-  background: #e86363;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
 }
 
-.logo {
-  width: 40px;
-  height: 40px;
-  background: #ccc;
-  border-radius: 5px;
+.header-nav {
+  display: flex;
+  gap: 2rem;
 }
 
-.nav-buttons button {
-  margin: 0 5px;
-  padding: 5px 10px;
-  border-radius: 10px;
-  font-weight: bold;
-  border: none;
-  background: white;
+.nav-link {
+  text-decoration: none;
+  color: #888;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
 }
 
-.profile-pic img {
+.nav-link.active {
+  background-color: #FFC107;
+  color: #fff;
+}
+
+.profile-pic {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
-.info-kantin {
+/* Main Container */
+.container {
+  padding: 1rem 2rem;
+}
+
+/* Canteen Info Section */
+.canteen-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.canteen-details {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: #ffb94a;
-  padding: 15px;
+  gap: 1.5rem;
 }
 
-.kantin-img {
+.canteen-img {
   width: 100px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
-.kantin-detail {
-  flex-grow: 1;
-  margin-left: 15px;
+.canteen-text h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
-.rating {
-  font-size: 24px;
-  font-weight: bold;
-  color: #5b25d1;
+.rating span {
+  background-color: #FFF2CC;
+  color: #FFA000;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  font-weight: 600;
 }
 
-.button-actions {
+.canteen-actions {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
-.button-actions button {
-  padding: 10px;
-  font-weight: bold;
+.btn {
+  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-add {
+  background-color: #FF4B4B;
   color: white;
 }
 
-.add-menu {
-  background: #f36b6b;
+.btn-check-order {
+  background-color: #E0E0E0;
+  color: #333;
 }
 
-.check-order {
-  background: #f36b6b;
+
+/* Menu Section */
+.menu-category {
+  margin-bottom: 2.5rem;
 }
 
-.menu-section {
-  padding: 20px;
-}
-
-.menu-section h3 {
-  font-size: 24px;
-  color: #5b25d1;
+.menu-category h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #555;
 }
 
 .menu-grid {
-  display: flex;
-  gap: 15px;
-  margin-top: 15px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
 }
 
 .menu-card {
+  background-color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   position: relative;
-  background: white;
-  border-radius: 10px;
-  padding: 10px;
-  width: 100px;
-  text-align: center;
+  transition: transform 0.2s;
 }
 
-.menu-card img {
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-img {
   width: 100%;
-  border-radius: 10px;
+  height: 150px;
+  object-fit: cover;
 }
 
-.edit-icon {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  background: #eee;
-  border-radius: 50%;
-  padding: 2px 6px;
+.card-icons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.edit-icon, .options-icon {
+    color: #333;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.edit-icon:hover, .options-icon:hover {
+    color: #FF4B4B;
+}
+
+.menu-info {
+  padding: 1rem;
 }
 
 .menu-name {
-  color: #5b25d1;
-  font-weight: bold;
-  margin: 5px 0 0 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
 }
 
-.price {
-  margin-top: 2px;
-  font-weight: bold;
+.menu-price {
+  color: #FF4B4B;
+  font-weight: 700;
+}
+
+.show-more-container {
+    text-align: center;
+    margin-top: 1.5rem;
 }
 
 .show-more {
-  text-align: center;
-  margin: 15px 0;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-footer {
-  padding: 20px;
-  text-align: center;
-  background: white;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #555;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
 }
