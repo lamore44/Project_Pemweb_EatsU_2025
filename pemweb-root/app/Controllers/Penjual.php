@@ -94,7 +94,18 @@ class Penjual extends BaseController
             ];
 
             // Simpan gambar ke direktori yang sesuai
-            $this->request->getFile('gambar')->move(WRITEPATH . 'uploads');
+            $gambarFile = $this->request->getFile('gambar');
+            $namaFile = time() . '_' . $gambarFile->getName();
+            $gambarFile->move(FCPATH . 'uploads', $namaFile);
+
+            $data = [
+                'id_kantin' => $kantin['id_kantin'],
+                'nama_produk' => $this->request->getPost('nama_produk'),
+                'harga' => $this->request->getPost('harga'),
+                'kategori' => $this->request->getPost('kategori'),
+                'gambar' => 'uploads/' . $namaFile, // simpan path relatif ke database
+            ];
+
 
             // Simpan produk ke database
             if ($produkModel->save($data)) {

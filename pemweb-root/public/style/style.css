@@ -34,15 +34,34 @@ body {
 }
 
 .hero {
+  background-color: #f07078;
   text-align: center;
-  padding: 60px 20px;
+  padding: 10px 20px;
+  margin: 40px 40px 0;
+  border-radius: 30px;
+  position: relative;
+}
+
+.hero::before {
+  content: url('/images/Slice 1.png');
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.hero::after {
+  content: url('/images/Slice 2.png');
+  position: absolute;
+  top: 10px;
+  right: 20px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 5rem;
   margin: 0;
   margin-top: 5rem;
   margin-bottom: 1rem;
+  color: #5926A6;
 }
 .animated-title {
   opacity: 0;
@@ -67,7 +86,8 @@ body {
 
 .subtitle {
   margin: 10px 0;
-  font-size: 10px;
+  font-size: 15px;
+  color: #5926A6;
 }
 
 .scroll-down {
@@ -84,6 +104,13 @@ body {
 section {
   padding: 40px 20px;
   text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #5926A6;
+  font-family: var(--font);
 }
 
 .cards {
@@ -123,16 +150,32 @@ section {
 }
 
 footer {
-  background-color: #fff;
+  background-color: var(--orange-light);
+  color: black;
   display: flex;
-  justify-content: space-around;
-  padding: 30px 20px;
+  justify-content: space-between; 
+  align-items: flex-start;
+  padding: 40px 60px; 
+  gap: 80px;
 }
 
 .footer-section {
   flex: 1;
   padding: 10px;
+  max-width: 400px; 
 }
+
+.footer-section h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-transform: lowercase;
+}
+
+.footer-section p {
+  font-size: 12px;
+  font-family: var(--font);
+}
+
 
 .footer-section input,
 .footer-section textarea,
@@ -141,4 +184,21 @@ footer {
   margin-top: 10px;
   padding: 5px;
   width: 100%;
+}
+
+#detail-menu,
+#detail-kantin {
+  transition: all 0.3s ease;
+}
+
+.back-arrow {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #000;
+  text-align: center;
+  font-family: var(--font);
+}
+.back-arrow:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -1,90 +1,186 @@
 /* warna & tipografi umum */
-body{
-  margin:0;
-  font-family:"Courier New",monospace;
-  background:#fff9b0;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  padding-top:40px;
+body {
+  margin: 0;
+  font-family: "Courier New", monospace;
+  background: #fff9b0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 15px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* wadah keseluruhan */
-.form-wrapper{
-  width:90%;
-  max-width:640px;
-  background:#ffffff;
-  border-radius:8px;
-  overflow:hidden;
-  box-shadow:0 4px 10px rgba(0,0,0,.15);
+.form-wrapper {
+  width: 100%;
+  max-width: 640px;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
 }
 
 /* header orange */
-.form-head{
-  background:#f7a640;
-  text-align:center;
-  padding:18px 0;
-  color:#fff;
+.form-head {
+  background: #f7a640;
+  text-align: center;
+  padding: 18px 20px;
+  color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.form-head h2{
-  margin:0;
-  font-size:20px;
+
+.form-head h2 {
+  margin: 0;
+  font-size: 20px;
 }
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.back-button i {
+  margin-right: 8px;
+}
+
+.back-button:hover {
+  opacity: .8;
+}
+
+/* Kontainer untuk pesan status */
+.status-message {
+  padding: 0 40px;
+  text-align: center;
+}
+.status-message p {
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: -10px; /* Mengurangi jarak ke form */
+}
+.status-message .success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.status-message .error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
 
 /* badan form */
-.form-body{
-  padding:30px 40px;
-  display:flex;
-  flex-direction:column;
-  gap:22px;
-}
-label{
-  display:flex;
-  flex-direction:column;
-  font-weight:bold;
-  gap:8px;
-}
-input[type=text],
-input[type=number]{
-  background:#dbdbdb;
-  border:none;
-  padding:10px 12px;
-  border-radius:4px;
-  font-family:inherit;
-  font-size:15px;
-}
-.img-label{
-  font-weight:bold;
-}
-.img-box{
-  background:#dbdbdb;
-  height:200px;
-  border-radius:4px;
-  position:relative;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-.img-box input{
-  cursor:pointer;
+.form-body {
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  gap: 8px;
+}
+
+input[type=text],
+input[type=number] {
+  background: #f0f0f0;
+  border: 1px solid #dbdbdb;
+  padding: 12px 12px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type=text]:focus,
+input[type=number]:focus {
+  outline: none;
+  border-color: #f7a640;
+  box-shadow: 0 0 5px rgba(247, 166, 64, 0.5);
+}
+
+.img-label {
+  font-weight: bold;
+  margin-bottom: -14px; /* Mengurangi jarak ke kotak gambar */
+}
+
+.img-box {
+  background: #f0f0f0;
+  height: 200px;
+  border: 2px dashed #dbdbdb;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: border-color 0.3s;
+}
+
+.img-box:hover {
+  border-color: #f7a640;
+}
+
+/* Sembunyikan input file asli */
+.img-box input[type="file"] {
+  display: none;
+}
+
+/* Styling untuk label kustom */
+.file-upload-label {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  gap: 10px;
+}
+
+.file-upload-label i {
+  font-size: 40px;
+  color: #f7a640;
+}
+
+.file-upload-label span {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+
 /* footer dengan tombol */
-.form-foot{
-  margin-top:30px;
-  background:#f7a640;
-  padding:40px 0;
-  text-align:center;
+.form-foot {
+  margin-top: 10px; /* Mengurangi jarak dari form body */
+  background: #f9f9f9;
+  border-top: 1px solid #eee;
+  padding: 20px 40px;
+  text-align: center;
 }
-button{
-  background:#ef5f67;
-  color:#fff;
-  border:none;
-  padding:12px 60px;
-  font-size:18px;
-  border-radius:8px;
-  cursor:pointer;
+
+button {
+  color: #fff;
+  border: none;
+  padding: 12px 60px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  transition: opacity .3s;
 }
-button:hover{
-  opacity:.9;
+
+.save-button {
+  background: #ef5f67;
+}
+
+button:hover {
+  opacity: .9;
 }
