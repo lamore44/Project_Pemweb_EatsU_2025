@@ -185,3 +185,20 @@ footer {
   padding: 5px;
   width: 100%;
 }
+
+#detail-menu,
+#detail-kantin {
+  transition: all 0.3s ease;
+}
+
+.back-arrow {
+  font-size: 18px;
+  margin-top: 20px;
+  color: #000;
+  text-align: center;
+  font-family: var(--font);
+}
+.back-arrow:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
