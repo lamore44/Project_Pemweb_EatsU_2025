@@ -133,4 +133,9 @@ INSERT INTO pembayaran (id_pesan, metode, status) VALUES
 (2, 'Cash', 'pending'),
 (3, 'Transfer', 'selesai');
 
+ALTER TABLE mahasiswa
+ADD COLUMN nama_mahasiswa VARCHAR(100) NOT NULL,
+ADD COLUMN email VARCHAR(100) NOT NULL;
+
+
 

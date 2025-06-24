@@ -1,13 +1,17 @@
 function toggleProfileMenu() {
-    const menu = document.getElementById("profile-menu");
-    menu.classList.toggle("hidden");
+    // Mengambil elemen menu berdasarkan ID-nya
+    const menu = document.getElementById('profile-menu');
+    
+    // Menambah atau menghapus kelas 'hidden'
+    menu.classList.toggle('hidden');
 }
 
-document.addEventListener("click", function (e) {
-    const menu = document.getElementById("profile-menu");
-    const icon = document.querySelector(".profile-icon");
-    if (!menu.contains(e.target) && !icon.contains(e.target)) {
-        menu.classList.add("hidden");
-    }
-})
+// Opsional: Menutup menu jika pengguna mengklik di luar area menu
+document.addEventListener('click', function(event) {
+    const profileContainer = document.querySelector('.profile-container');
+    const isClickInside = profileContainer.contains(event.target);
 
+    if (!isClickInside) {
+        document.getElementById('profile-menu').classList.add('hidden');
+    }
+});

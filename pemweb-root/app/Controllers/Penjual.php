@@ -6,6 +6,7 @@ use App\Models\KantinModel;
 use App\Models\ProdukModel;
 use App\Models\PenjualModel;
 use App\Models\ReviewModel;
+use App\Models\MemesanModel;
 
 class Penjual extends BaseController
 {
@@ -216,5 +217,26 @@ class Penjual extends BaseController
         $kantinModel->update($kantinData['id_kantin'], $dataKantin);
 
         return redirect()->to('/penjual/profile')->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function cekPesanan()
+    {
+        // Memeriksa apakah penjual sudah login
+        if (
+            !session()->has('id_penjual') ||
+            session()->get('role') !== 'penjual'
+        ) {
+            return redirect()->to('/login');
+        }
+
+        $id_penjual = session()->get('id_penjual'); // Mendapatkan ID penjual dari sesi login
+
+        // Inisialisasi model
+        $pesananModel = new \App\Models\MemesanModel();
+
+        // Ambil data pesanan berdasarkan ID penjual
+        $pesanan = $pesananModel->where('id_penjual', $id_penjual)->findAll();
+
+        return view('penjual/cekPesanan-pedagang', ['pesanan' => $pesanan]);
     }
 }

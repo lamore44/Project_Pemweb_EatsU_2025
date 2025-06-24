@@ -1,144 +1,205 @@
-  <!DOCTYPE html>
-  <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Profil <?= esc($penjual['nama_penjual']) ?></title>
-    <link rel="stylesheet" href="<?= base_url('style/profil-pedagang.css')?>" />
-    <style>
-      .form-card {
-          background-color: #fff;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-          margin: 20px auto;
-          max-width: 800px;
-          overflow: hidden;
-      }
-      .form-header {
-          background-color: #ffc107;
-          color: #333;
-          padding: 20px;
-          font-size: 1.25rem;
-          font-weight: bold;
-          text-align: center;
-      }
-      .form-body {
-          padding: 20px 30px;
-          display: flex;
-          flex-direction: column;
-          gap: 15px; /* Memberi jarak antar grup form */
-      }
-      .form-group {
-          display: flex;
-          flex-direction: column;
-      }
-      .form-group label {
-          font-weight: bold;
-          margin-bottom: 5px;
-          color: #555;
-      }
-      .form-group input[type="text"],
-      .form-group input[type="file"] {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-size: 1rem;
-          box-sizing: border-box; /* Penting untuk padding */
-      }
-      .form-group input[readonly] {
-          background-color: #e9ecef;
-          cursor: not-allowed;
-      }
-      .form-footer {
-          padding: 20px;
-          text-align: right;
-          background-color: #f8f9fa;
-      }
-      .btn-simpan {
-          background-color: #dc3545;
-          color: white;
-          padding: 12px 25px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 1rem;
-          font-weight: bold;
-          transition: background-color 0.3s;
-      }
-      .btn-simpan:hover {
-          background-color: #c82333;
-      }
-      .alert-success {
-          padding: 15px; 
-          background-color: #d4edda; 
-          color: #155724; 
-          border: 1px solid #c3e6cb; 
-          border-radius: 5px; 
-          margin: 20px auto; 
-          max-width: 800px;
-          text-align: center;
-      }
-    </style>
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil - <?= esc($kantin['nama_kantin']) ?></title>
+  <link rel="stylesheet" href="<?= base_url('style/homepage_pedagang.css'); ?>">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  
+  <style>
+    body {
+        background-color: #f8f9fa; 
+    }
+    .container {
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+    .profile-card {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        margin: 20px auto;
+        max-width: 800px;
+        overflow: hidden;
+        border: 1px solid #e9ecef;
+    }
+    .profile-card-header {
+        padding: 25px 30px;
+        border-bottom: 1px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .profile-card-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .profile-card-info h1 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #343a40;
+        margin: 0;
+    }
+    .profile-card-info p {
+        margin: 5px 0 0;
+        color: #6c757d;
+        font-size: 1rem;
+    }
+    /* Body form */
+    .form-body {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #495057;
+        font-size: 0.95rem;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="file"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input[type="text"]:focus,
+    .form-group input[type="file"]:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.25);
+        outline: none;
+    }
+    .form-group input[readonly] {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+    .form-group small {
+        margin-top: 8px;
+        color: #6c757d;
+        font-size: 0.85rem;
+    }
+    .form-footer {
+        padding: 20px 30px;
+        text-align: right;
+        background-color: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+    }
+    .btn-save {
+        background-color: #ffc107;
+        color: #333;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .btn-save:hover {
+        background-color: #e0a800;
+        transform: translateY(-2px);
+    }
+    .alert-success {
+        padding: 15px 20px; 
+        background-color: #d1e7dd; 
+        color: #0f5132; 
+        border: 1px solid #badbcc; 
+        border-radius: 8px; 
+        margin: 0 auto 20px; 
+        max-width: 800px;
+        text-align: center;
+        font-weight: 500;
+    }
 
-    <header>
-      <!-- Pastikan link navigasi sudah benar -->
-      <div class="logo"></div>
-      <nav>
-        <a href="<?= site_url('penjual/dashboard') ?>"><button>Home</button></a>
-        <a href="<?= site_url('penjual/profile') ?>"><button>Profile</button></a>
-        <button>Report</button>
-      </nav>
-      <div class="avatar"></div>
-    </header>
+    .header {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
 
-    <section class="profil-header">
-      <img src="<?= base_url($kantin['gambar_kantin'] ?? 'assets/images/default-kantin.jpg') ?>" alt="Foto Kantin" class="profil-img" />
-      <div class="profil-info">
-        <h1><?= esc($kantin['nama_kantin']) ?></h1>
-        <p><span class="rating"> Rating: <?= isset($ratings[$kantin['id_kantin']]) ? $ratings[$kantin['id_kantin']] : 'No rating yet' ?></span> ⭐</p>
-      </div>
-    </section>
+  <header class="header">
+    <div class="header-left">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </div>
+    <nav class="header-nav">
+      <a href="<?= site_url('penjual/dashboard') ?>" class="nav-link">Home</a>
+      <a href="#" class="nav-link active">Profile</a>
+      <a href="#" class="nav-link">Report</a>
+    </nav>
+    <div class="header-right">
+      <img src="<?= base_url('images/profile.jpg') ?>" alt="Profil" class="profile-pic" />
+    </div>
+  </header>
 
-    <?php if (isset($success)): ?>
+  <main class="container">
+
+    <?php if (isset($success) && $success): ?>
         <div class="alert-success"><?= esc($success) ?></div>
     <?php endif; ?>
 
     <form action="<?= site_url('penjual/profile/update') ?>" method="post" enctype="multipart/form-data">
       <?= csrf_field() ?>
-      <section class="form-card">
-        <div class="form-header">Informasi Akun</div>
+      <section class="profile-card">
+
+        <div class="profile-card-header">
+          <img src="<?= base_url($kantin['gambar_kantin'] ?? 'images/kantin.jpg') ?>" alt="Foto Kantin" class="profile-card-img" />
+          <div class="profile-card-info">
+            <h1>Profil Akun & Kantin</h1>
+            <p>Perbarui informasi Anda di bawah ini</p>
+          </div>
+        </div>
+
         <div class="form-body">
           
           <div class="form-group">
-            <label for="nama_penjual">Nama Penjual:</label>
+            <label for="nama_penjual">Nama Penjual</label>
             <input type="text" id="nama_penjual" name="nama_penjual" value="<?= esc($penjual['nama_penjual']) ?>">
           </div>
           
           <div class="form-group">
-            <label for="nama_kantin">Nama Kantin:</label>
+            <label for="nama_kantin">Nama Kantin</label>
             <input type="text" id="nama_kantin" name="nama_kantin" value="<?= esc($kantin['nama_kantin']) ?>">
           </div>
 
           <div class="form-group">
-            <label for="username">Username:</label>
+            <label for="username">Username</label>
             <input type="text" id="username" name="username" value="<?= esc($penjual['username']) ?>" readonly>
           </div>
           
           <div class="form-group">
-            <label for="gambar_kantin">Ganti Gambar Kantin:</label>
+            <label for="gambar_kantin">Ganti Gambar Kantin</label>
             <input type="file" id="gambar_kantin" name="gambar_kantin">
-            <small style="margin-top: 5px; color: #6c757d;">Kosongkan jika tidak ingin mengganti gambar.</small>
+            <small>Kosongkan jika tidak ingin mengganti gambar.</small>
           </div>
 
         </div>
+
         <div class="form-footer">
-          <button type="submit" class="btn-simpan">Simpan Perubahan</button>
+          <button type="submit" class="btn-save">Simpan Perubahan</button>
         </div>
+        
       </section>
     </form>
+    
+  </main>
 
-  </body>
-  </html>
+</body>
+</html>

@@ -18,7 +18,6 @@
   <main class="flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
       
-      <!-- Flash message -->
       <?php if (session()->getFlashdata('success')): ?>
         <div class="mb-4 bg-green-200 text-green-800 p-3 rounded text-center">
           <?= session()->getFlashdata('success') ?>

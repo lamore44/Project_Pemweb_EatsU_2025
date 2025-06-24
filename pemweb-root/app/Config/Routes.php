@@ -31,10 +31,20 @@ $routes->get('/penjual/tambah-menu', 'Penjual::tambahMenu');
 $routes->post('/penjual/tambah-menu', 'Penjual::tambahMenu');
 $routes->get('/penjual/profile', 'Penjual::profile');
 $routes->post('/penjual/profile/update', 'Penjual::updateProfile');
+$routes->get('/penjual/cekPesanan-pedagang', 'Penjual::cekPesanan');
 
 
 
 //Route mahasiswa
 $routes->get('/mahasiswa/dashboard', 'Mahasiswa::dashboard');
+$routes->get('/mahasiswa/edit_profile', 'Mahasiswa::editProfile');
+$routes->post('/mahasiswa/update-profile', 'Mahasiswa::updateProfile');
+$routes->get('/mahasiswa/change_password', 'Mahasiswa::changePassword');
+$routes->post('/mahasiswa/update-password', 'Mahasiswa::updatePassword');
+
+$routes->get('payment', 'Payment::index');
+$routes->post('payment/processPayment', 'Payment::processPayment');
+$routes->get('payment-success', 'Payment::paymentSuccess');
+
 
 

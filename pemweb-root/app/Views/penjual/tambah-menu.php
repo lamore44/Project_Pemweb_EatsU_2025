@@ -24,14 +24,14 @@
       // Cek apakah form disubmit
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Koneksi ke database
-        $conn = new mysqli("localhost", "root", "adhiet", "unram_eats_db");
+        $conn = new mysqli("localhost", "root", "", "unram_eats_db");
         if ($conn->connect_error) {
           die("Koneksi gagal: " . $conn->connect_error);
         }
 
         // Ambil id_kantin dari fungsi getIdKantin
         $penjualController = new Penjual();
-        $id_kantin = $penjualController->getIdKantin(); // Pastikan ini mengembalikan ID yang valid
+        $id_kantin = $penjualController->getIdKantin();
 
         $nama = $_POST['nama_menu'];
         $tipe = $_POST['tipe_menu'];

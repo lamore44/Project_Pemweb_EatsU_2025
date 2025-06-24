@@ -33,7 +33,7 @@
     </section>
 
     <section id="top-menu">
-    <h2>Top Menu</h2>
+    <h2>Menu</h2>
     <div class="cards">
       <div class="card">
         <img src="/images/kebab2.png" alt="Kebab">
@@ -52,7 +52,7 @@
   </section>
 
   <section id="top-kantin">
-    <h2>Top Warung</h2>
+    <h2>Warung</h2>
     <div class="cards">
       <div class="card">
         <img src="/images/kantinA.png" alt="Kantin A">
