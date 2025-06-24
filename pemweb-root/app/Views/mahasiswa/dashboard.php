@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Homepage Mahasiswa | EATSU</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Pastikan path CSS sudah benar -->
     <link rel="stylesheet" href="<?= base_url('style/homepage-mahasiswa.css') ?>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -18,6 +19,7 @@
         <div class="nav-right">
             <div class="cart-icon" onclick="toggleCart()">
                 <i class="fa-solid fa-cart-shopping"></i>
+                <!-- Badge notifikasi akan di-handle oleh JavaScript -->
                 <span id="cart-badge" class="cart-badge hidden">0</span>
             </div>
 
@@ -33,7 +35,7 @@
                             <button type="submit" class="logout-btn">Logout</button>
                         </form>
                     <?php else: ?>
-                        <a href="<?= base_url('login') ?>" class="login-btn">logout</a>
+                        <a href="<?= base_url('login') ?>" class="login-btn">Login</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -47,6 +49,13 @@
     </section>
 
     <main class="main-content">
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+        <?php endif; ?>
+
         <section class="menu-section">
             <div class="section-header">
                 <h2>Menu</h2>
@@ -55,10 +64,9 @@
                 <?php if ($produk): ?>
                     <?php foreach ($produk as $p): ?>
                         <div class="menu-card"
-                            onclick="openModal(
+                             onclick="openModal(
                                  '<?= esc($p['id_produk']) ?>',
                                  '<?= esc($p['nama_produk']) ?>',
-                                 '<?= esc($p['nama_']) ?>',
                                  '<?= number_format($p['harga'], 0, ',', '.') ?>',
                                  '<?= $p['harga'] ?>',
                                  '<?= base_url('images/placeholder_menu.png') ?>'
@@ -75,12 +83,45 @@
                 <?php endif; ?>
             </div>
         </section>
+
+        <section class="pesanan-section">
+            <div class="section-header">
+                <h2>Pesanan Saya</h2>
+            </div>
+            <div class="pesanan-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Produk</th>
+                            <th>Waktu Pesan</th>
+                            <th>Status Pembayaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($pesanan)): ?>
+                            <?php foreach ($pesanan as $item): ?>
+                                <tr>
+                                    <td><?= esc($item['nama_produk']) ?></td>
+                                    <td><?= esc($item['waktu_pesan']) ?></td>
+                                    <td><?= esc($item['status']) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="3">Belum ada pesanan.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
         <p>&copy; <?= date('Y') ?> EATSU. All Rights Reserved.</p>
     </footer>
 
+    <!-- Modal Kuantitas Produk -->
     <div class="modal-overlay" id="quantityModal">
         <div class="modal-content">
             <img src="" alt="Gambar Makanan" class="modal-img">
@@ -96,7 +137,6 @@
             <button class="btn-close-modal" onclick="closeModal()">Tutup</button>
         </div>
     </div>
-
 
     <!-- Modal Pembayaran -->
     <div class="modal-overlay" id="paymentModal">
@@ -114,6 +154,7 @@
         </div>
     </div>
 
+    <!-- Sidebar Keranjang -->
     <aside class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h3>Keranjang Anda</h3>
@@ -129,55 +170,66 @@
                 <span>Total</span>
                 <span id="cart-total-price">Rp 0</span>
             </div>
-            <button class="btn-checkout">Pesan Sekarang</button>
+            <button class="btn-checkout" id="checkoutBtn">Pesan Sekarang</button>
         </div>
     </aside>
 
     <script>
-        // Fungsi lama untuk toggle menu profil
-        function toggleProfileMenu() {
-            document.getElementById('profile-menu').classList.toggle('hidden');
-        }
+        // --- Global State & Element References ---
         let currentModalData = {};
-        let cart = []; // Format: [{ id, name, price, quantity, image }]
+        // Inisialisasi keranjang dari data session PHP, menggunakan id_produk sebagai key
+        // Ini akan disinkronkan dengan server setiap ada perubahan
+        let cart = <?= json_encode(array_values(session('cart') ?? [])); ?>;
 
-        // Referensi elemen-elemen DOM
-        const modal = document.getElementById('quantityModal');
+        const quantityModal = document.getElementById('quantityModal');
+        const paymentModal = document.getElementById('paymentModal');
         const cartSidebar = document.getElementById('cartSidebar');
         const cartBadge = document.getElementById('cart-badge');
         const cartItemsContainer = document.getElementById('cart-items-container');
         const cartEmptyMsg = document.getElementById('cart-empty-msg');
         const cartTotalPriceEl = document.getElementById('cart-total-price');
 
-        // Fungsi untuk membuka dan menutup keranjang
+        // --- Core Functions ---
+        function toggleProfileMenu() {
+            document.getElementById('profile-menu').classList.toggle('hidden');
+        }
+
         function toggleCart() {
             cartSidebar.classList.toggle('open');
         }
 
-        // Fungsi untuk membuka modal dengan data produk
-        function openModal(id, name, formattedPrice, rawPrice, image) {
-            currentModalData = {
-                id,
-                name,
-                price: parseInt(rawPrice),
-                image
-            };
-
-            modal.querySelector('.modal-title').textContent = name;
-            modal.querySelector('.modal-price').textContent = `Rp ${formattedPrice}`;
-            modal.querySelector('.modal-img').src = image;
-            modal.querySelector('#modal-quantity-input').value = 1; // Reset jumlah
-            modal.classList.add('show');
+        function openModal(id_produk, name, formattedPrice, rawPrice, image) {
+            currentModalData = { id_produk, name, price: parseInt(rawPrice), image };
+            quantityModal.querySelector('.modal-title').textContent = name;
+            quantityModal.querySelector('.modal-price').textContent = `Rp ${formattedPrice}`;
+            quantityModal.querySelector('.modal-img').src = image;
+            quantityModal.querySelector('#modal-quantity-input').value = 1;
+            quantityModal.classList.add('show');
         }
 
-        // Fungsi untuk menutup modal
         function closeModal() {
-            modal.classList.remove('show');
+            quantityModal.classList.remove('show');
+        }
+        
+        function openPaymentModal() {
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            if (total <= 0) {
+                 // Ganti alert dengan notifikasi yang lebih baik jika ada
+                 alert('Keranjang Anda kosong!');
+                 return;
+            }
+            document.getElementById('payment-total').textContent = `Total: Rp ${total.toLocaleString('id-ID')}`;
+            paymentModal.classList.add('show');
+            toggleCart();
         }
 
-        // Fungsi untuk mengupdate tampilan keranjang
+        function closePaymentModal() {
+            paymentModal.classList.remove('show');
+        }
+
+        // --- Cart Rendering ---
         function renderCart() {
-            cartItemsContainer.innerHTML = ''; // Kosongkan kontainer
+            cartItemsContainer.innerHTML = ''; 
             let total = 0;
             let totalItems = 0;
 
@@ -188,7 +240,7 @@
                 cartEmptyMsg.style.display = 'none';
                 cart.forEach(item => {
                     total += item.price * item.quantity;
-                    totalItems += item.quantity;
+                    totalItems += parseInt(item.quantity);
                     const itemEl = document.createElement('div');
                     itemEl.className = 'cart-item';
                     itemEl.innerHTML = `
@@ -198,20 +250,20 @@
                             <p class="item-price">Rp ${item.price.toLocaleString('id-ID')}</p>
                         </div>
                         <div class="cart-item-quantity">
-                            <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <button onclick="updateCartItem('${item.id_produk}', -1)">-</button>
                             <span>${item.quantity}</span>
-                            <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button onclick="updateCartItem('${item.id_produk}', 1)">+</button>
                         </div>
-                        <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">
+                        <button class="cart-item-remove" onclick="updateCartItem('${item.id_produk}', -item.quantity)">
                             <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    `;
+                        </button>`;
                     cartItemsContainer.appendChild(itemEl);
                 });
             }
 
-            // Update total harga dan badge notifikasi
             cartTotalPriceEl.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            document.getElementById('checkoutBtn').disabled = cart.length === 0;
+
             if (totalItems > 0) {
                 cartBadge.textContent = totalItems;
                 cartBadge.classList.remove('hidden');
@@ -219,26 +271,40 @@
                 cartBadge.classList.add('hidden');
             }
         }
+        
+        // --- Asynchronous Cart Operations (Communicates with PHP Backend) ---
+        async function updateCartItem(produk_id, quantityChange, itemData = null) {
+            const formData = new FormData();
+            formData.append('id_produk', produk_id);
+            formData.append('quantity', quantityChange);
+            
+            if (itemData) {
+                formData.append('name', itemData.name);
+                formData.append('price', itemData.price);
+                formData.append('image', itemData.image);
+            }
 
-        // Fungsi untuk menambah/mengurangi kuantitas di keranjang
-        function updateQuantity(productId, change) {
-            const itemIndex = cart.findIndex(item => item.id === productId);
-            if (itemIndex > -1) {
-                cart[itemIndex].quantity += change;
-                if (cart[itemIndex].quantity <= 0) {
-                    cart.splice(itemIndex, 1); // Hapus jika kuantitas jadi 0 atau kurang
+            try {
+                const response = await fetch('<?= base_url('order/update_cart') ?>', {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    cart = data.cart; 
+                    renderCart();
+                } else {
+                    alert(data.message || 'Gagal memperbarui keranjang.');
                 }
-                renderCart();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan koneksi.');
             }
         }
-
-        // Fungsi untuk menghapus item dari keranjang
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            renderCart();
-        }
-
-        // Event listener untuk tombol di modal
+        
+        // --- Event Listeners ---
         document.getElementById('modal-plus-btn').addEventListener('click', () => {
             const input = document.getElementById('modal-quantity-input');
             input.value = parseInt(input.value) + 1;
@@ -253,32 +319,51 @@
 
         document.getElementById('addToCartBtn').addEventListener('click', () => {
             const quantity = parseInt(document.getElementById('modal-quantity-input').value);
-            const existingItem = cart.find(item => item.id === currentModalData.id);
-
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({
-                    ...currentModalData,
-                    quantity
-                });
-            }
-
+            updateCartItem(currentModalData.id_produk, quantity, currentModalData);
             closeModal();
-            renderCart(); // Perbarui tampilan keranjang
             if (!cartSidebar.classList.contains('open')) {
                 toggleCart();
             }
         });
 
+        document.getElementById('checkoutBtn').addEventListener('click', openPaymentModal);
+
+        document.getElementById('payNowBtn').addEventListener('click', async () => {
+             const paymentMethod = document.getElementById('payment-method').value;
+             const orderData = {
+                 cart: cart,
+                 payment_method: paymentMethod
+             };
+             
+             try {
+                const response = await fetch('<?= base_url('order/checkout') ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Pesanan berhasil dibuat! Halaman akan dimuat ulang.');
+                    window.location.reload(); 
+                } else {
+                    alert(data.message || 'Gagal membuat pesanan.');
+                }
+             } catch(error) {
+                console.error('Checkout Error:', error);
+                alert('Terjadi kesalahan saat checkout.');
+             }
+        });
+        
         window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
+            if (event.target === quantityModal) closeModal();
+            if (event.target === paymentModal) closePaymentModal();
         });
 
-        renderCart();
+        document.addEventListener('DOMContentLoaded', renderCart);
     </script>
 </body>
-
 </html>

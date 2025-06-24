@@ -6,6 +6,7 @@ use App\Models\KantinModel;
 use App\Models\ProdukModel;
 use App\Models\PenjualModel;
 use App\Models\ReviewModel;
+use App\Models\PembayaranModel;
 use App\Models\MemesanModel;
 
 class Penjual extends BaseController
@@ -219,24 +220,79 @@ class Penjual extends BaseController
         return redirect()->to('/penjual/profile')->with('success', 'Profil berhasil diperbarui!');
     }
 
+    /**
+     * Menampilkan halaman daftar pesanan yang masuk
+     * untuk produk-produk milik penjual yang sedang login.
+     */
     public function cekPesanan()
     {
-        // Memeriksa apakah penjual sudah login
-        if (
-            !session()->has('id_penjual') ||
-            session()->get('role') !== 'penjual'
-        ) {
+        $session = session();
+        // Pastikan hanya penjual yang bisa akses
+        if ($session->get('role') !== 'penjual') {
             return redirect()->to('/login');
         }
 
-        $id_penjual = session()->get('id_penjual'); // Mendapatkan ID penjual dari sesi login
+        $penjual_user_id = $session->get('user_id');
+        if (!$penjual_user_id) {
+            return redirect()->to('/login')->with('error', 'Sesi tidak valid.');
+        }
 
-        // Inisialisasi model
-        $pesananModel = new \App\Models\MemesanModel();
+        $db = \Config\Database::connect();
 
-        // Ambil data pesanan berdasarkan ID penjual
-        $pesanan = $pesananModel->where('id_penjual', $id_penjual)->findAll();
+        // Query utama untuk mengambil semua pesanan yang relevan
+        $builder = $db->table('penjual pnj');
+        $builder->select('
+            mhs.nama_mahasiswa,
+            pr.nama_produk,
+            ms.jumlah,
+            ms.waktu_pesan,
+            pm.status,
+            pm.id_pembayaran
+        ');
+        $builder->join('kantin k', 'k.id_penjual = pnj.id_penjual');
+        $builder->join('produk pr', 'pr.id_kantin = k.id_kantin');
+        $builder->join('memesan ms', 'ms.id_produk = pr.id_produk');
+        $builder->join('pembayaran pm', 'pm.id_pesan = ms.id_pesan');
+        $builder->join('mahasiswa mhs', 'mhs.id_mhs = ms.id_mhs');
+        $builder->where('pnj.user_id', $penjual_user_id);
+        $builder->orderBy('ms.waktu_pesan', 'DESC');
 
-        return view('penjual/cekPesanan-pedagang', ['pesanan' => $pesanan]);
+        $data['pesanan'] = $builder->get()->getResultArray();
+
+        // Ambil info kantin untuk ditampilkan di view
+        $kantin_builder = $db->table('penjual pnj');
+        $kantin_builder->select('k.nama_kantin');
+        $kantin_builder->join('kantin k', 'k.id_penjual = pnj.id_penjual');
+        $kantin_builder->where('pnj.user_id', $penjual_user_id);
+        $data['kantin'] = $kantin_builder->get()->getRowArray();
+
+        // Ganti nama view jika berbeda
+        return view('penjual/cekPesanan-pedagang', $data);
+    }
+
+    /**
+     * Menangani permintaan untuk mengonfirmasi pembayaran.
+     * Mengubah status dari 'pending' menjadi 'selesai'.
+     */
+    public function konfirmasiPembayaran()
+    {
+        // Pastikan hanya penjual yang bisa akses
+        if (session()->get('role') !== 'penjual') {
+            return redirect()->to('/login');
+        }
+
+        $id_pembayaran = $this->request->getPost('id_pembayaran');
+        if (!$id_pembayaran) {
+            return redirect()->back()->with('error', 'ID Pembayaran tidak valid.');
+        }
+
+        // Gunakan PembayaranModel untuk update
+        $pembayaranModel = new PembayaranModel();
+
+        // Update status di database
+        $pembayaranModel->update($id_pembayaran, ['status' => 'selesai']);
+
+        // Redirect kembali ke halaman cek pesanan dengan pesan sukses
+        return redirect()->to('penjual/cekPesanan-pedagang')->with('success', 'Pembayaran berhasil dikonfirmasi.');
     }
 }
